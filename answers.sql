@@ -1,47 +1,51 @@
 -- Question one 
-SELECT 101 AS OrderID, 'John Doe' AS CustomerName, 'Laptop' AS Product
-UNION ALL
-SELECT 101, 'John Doe', 'Mouse'
-UNION ALL
-SELECT 102, 'Jane Smith', 'Tablet'
-UNION ALL
-SELECT 102, 'Jane Smith', 'Keyboard'
-UNION ALL
-SELECT 102, 'Jane Smith', 'Mouse'
-UNION ALL
-SELECT 103, 'Emily Clark', 'Phone';
+
+CREATE TABLE ProductDetail (
+    OrderID INT,
+    CustomerName VARCHAR(100),
+    Products VARCHAR(100)
+);
+
+INSERT INTO ProductDetail(OrderID, CustomerName, Products)
+VALUES
+(101, 'John Doe', 'Laptop'),
+(101, 'John Doe', 'Mouse'),
+(102, 'Jane Smith', 'Tablet'),
+(102, 'Jane Smith', 'Keyboard'),
+(102, 'Jane Smith', 'Mouse'),
+(103, 'Emily Clark', 'Phone');
+
 
 -- Question two
 
--- Orders table
-CREATE TABLE Orders (
-    OrderID INT PRIMARY KEY,
-    CustomerName VARCHAR(100)
+ CREATE TABLE orders(
+OrderID INT PRIMARY KEY,
+customerName VARCHAR(100)
 );
 
--- OrderItems table
-CREATE TABLE OrderItems (
-    OrderID INT,
-    Product VARCHAR(100),
-    Quantity INT,
-    PRIMARY KEY (OrderID, Product),
-    FOREIGN KEY (OrderID) REFERENCES Orders(OrderID)
-);
-
--- Insert into Orders
-INSERT INTO Orders (OrderID, CustomerName)
+INSERT INTO orders (OrderID, CustomerName)
 VALUES
 (101, 'John Doe'),
 (102, 'Jane Smith'),
 (103, 'Emily Clark');
 
--- Insert into OrderItems
-INSERT INTO OrderItems (OrderID, Product, Quantity)
-VALUES
-(101, 'Laptop', 2),
-(101, 'Mouse', 1),
-(102, 'Tablet', 3),
-(102, 'Keyboard', 1),
-(102, 'Mouse', 2),
-(103, 'Phone', 1);
+-- Product  table 
+
+CREATE TABLE product(
+product_id INT primary key,
+productName varchar(100),
+quantity INT,
+order_id INT,
+foreign key(order_id) references orders(OrderID)
+);
+
+insert into product(product_id,productName,quantity,order_id)
+values 
+(1,'laptop',2,101),
+(2,'Mouse',1,101),
+(3,'Tablet',3,102),
+(4,'Keyboard',2,102),
+(5,'Mouse',1,102),
+(6,'Phone',1,103);
+
 
